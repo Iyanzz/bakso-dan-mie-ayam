@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bakso Mantap Jaya — Bakso & Mie Ayam Enak, Bisa Diantar!</title>
+  <meta name="description" content="Bakso & Mie Ayam segar, kuah gurih, bisa diantar ke rumah. Order online via WhatsApp. Wilayah Blora dan sekitarnya." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- ========== STICKY CART BUTTON ========== -->
+  <button class="cart-fab" id="cartFab" onclick="toggleCart()" aria-label="Buka keranjang">
+    <i class="fas fa-shopping-basket"></i>
+    <span class="cart-badge" id="cartBadge">0</span>
+  </button>
+
+  <!-- ========== NAVBAR ========== -->
+  <header class="navbar" id="navbar">
+    <div class="nav-inner container">
+      <div class="nav-brand">
+        <span class="brand-icon">🍜</span>
+        <div>
+          <span class="brand-name">Bakso Mantap Jaya</span>
+          <span class="brand-tagline">Bakso & Mie Ayam Asli</span>
+        </div>
+      </div>
+      <nav class="nav-links" id="navLinks">
+        <a href="#menu">Menu</a>
+        <a href="#area-delivery">Area Delivery</a>
+        <a href="#lokasi">Lokasi</a>
+        <a href="#checkout" class="btn-nav-order">Pesan Sekarang</a>
+      </nav>
+      <button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg-overlay"></div>
+    <div class="hero-content container">
+      <div class="hero-text">
+        <div class="hero-badge"><i class="fas fa-fire"></i> Favorit Warga Blora</div>
+        <h1 class="hero-title">Bakso & Mie Ayam <span class="highlight">Asli</span>,<br/>Bisa Diantar ke Rumah!</h1>
+        <p class="hero-subtitle">Kuah gurih menggoda, daging kenyal, topping lengkap.<br/>Order sekarang — siap diantar segar ke depan pintu Anda.</p>
+        <div class="hero-cta">
+          <a href="#menu" class="btn btn-primary btn-lg"><i class="fas fa-utensils"></i> Lihat Menu & Pesan</a>
+          <a href="#area-delivery" class="btn btn-outline-white btn-lg"><i class="fas fa-motorcycle"></i> Cek Area Delivery</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><span class="stat-val">⭐ 4.9</span><span class="stat-lbl">Rating</span></div>
+          <div class="stat-divider"></div>
+          <div class="stat"><span class="stat-val">🕗 08.00–21.00</span><span class="stat-lbl">Jam Buka</span></div>
+          <div class="stat-divider"></div>
+          <div class="stat"><span class="stat-val">🛵 Fast Delivery</span><span class="stat-lbl">Area Blora</span></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-bowl-wrap">
+          <div class="hero-bowl">
+            <div class="bowl-steam s1"></div>
+            <div class="bowl-steam s2"></div>
+            <div class="bowl-steam s3"></div>
+            <div class="bowl-emoji">🍜</div>
+            <div class="bowl-label">Kuah Panas<br/>Segar</div>
+          </div>
+          <div class="hero-badge-float top-right">
+            <i class="fas fa-star"></i> Best Seller
+          </div>
+          <div class="hero-badge-float bottom-left">
+            <i class="fas fa-pepper-hot"></i> Pedas Level
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-wave">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,60 C360,100 1080,20 1440,60 L1440,80 L0,80 Z" fill="#fffaf5"/></svg>
+    </div>
+  </section>
+
+  <!-- ========== MENU ========== -->
+  <section class="section-menu" id="menu">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Menu Pilihan</div>
+        <h2 class="section-title">Pilih Favoritmu <span class="highlight">Sekarang</span></h2>
+        <p class="section-subtitle">Klik tombol <strong>"+ Tambah"</strong> untuk memasukkan item ke keranjang pesananmu.</p>
+      </div>
+
+      <!-- TABS -->
+      <div class="menu-tabs" id="menuTabs">
+        <button class="tab-btn active" data-cat="makanan" onclick="filterMenu('makanan')">
+          <i class="fas fa-bowl-food"></i> Makanan
+        </button>
+        <button class="tab-btn" data-cat="tambahan" onclick="filterMenu('tambahan')">
+          <i class="fas fa-plus-circle"></i> Tambahan
+        </button>
+        <button class="tab-btn" data-cat="minuman" onclick="filterMenu('minuman')">
+          <i class="fas fa-glass-water"></i> Minuman
+        </button>
+      </div>
+
+      <!-- MENU GRID -->
+      <div class="menu-grid" id="menuGrid"></div>
+    </div>
+  </section>
+
+  <!-- ========== CART PANEL ========== -->
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+  <aside class="cart-panel" id="cartPanel">
+    <div class="cart-header">
+      <h3><i class="fas fa-shopping-basket"></i> Keranjang Pesanan</h3>
+      <button class="cart-close" onclick="closeCart()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-body" id="cartBody">
+      <div class="cart-empty" id="cartEmpty">
+        <div class="cart-empty-icon">🛒</div>
+        <p>Keranjang masih kosong.<br/>Yuk pilih menu dulu!</p>
+        <button class="btn btn-primary" onclick="closeCart()">Lihat Menu</button>
+      </div>
+      <ul class="cart-list" id="cartList"></ul>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-summary-line">
+        <span>Subtotal Menu</span>
+        <span id="cartSubtotal">Rp0</span>
+      </div>
+      <div class="cart-summary-line ongkir-line" id="ongkirLine" style="display:none">
+        <span>Ongkir (<span id="ongkirZoneName">-</span>)</span>
+        <span id="cartOngkir">Rp0</span>
+      </div>
+      <div class="cart-summary-total">
+        <span>Total Bayar</span>
+        <span id="cartTotal">Rp0</span>
+      </div>
+      <a href="#checkout" class="btn btn-primary btn-block" onclick="closeCart()">
+        <i class="fas fa-arrow-right"></i> Lanjut ke Checkout
+      </a>
+    </div>
+  </aside>
+
+  <!-- ========== CHECKOUT ========== -->
+  <section class="section-checkout" id="checkout">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Checkout</div>
+        <h2 class="section-title">Detail <span class="highlight">Pesanan</span></h2>
+      </div>
+
+      <div class="checkout-layout">
+        <!-- LEFT: FORM -->
+        <div class="checkout-form-wrap">
+
+          <!-- Metode -->
+          <div class="form-card">
+            <h4 class="form-card-title"><i class="fas fa-truck"></i> Metode Pengiriman</h4>
+            <div class="method-toggle">
+              <label class="method-option" id="lblDelivery">
+                <input type="radio" name="metode" value="delivery" id="radioDelivery" checked onchange="onMetodeChange()" />
+                <span class="method-box">
+                  <i class="fas fa-motorcycle"></i>
+                  <strong>Delivery</strong>
+                  <small>Antar ke rumah</small>
+                </span>
+              </label>
+              <label class="method-option" id="lblPickup">
+                <input type="radio" name="metode" value="pickup" id="radioPickup" onchange="onMetodeChange()" />
+                <span class="method-box">
+                  <i class="fas fa-store"></i>
+                  <strong>Ambil di Toko</strong>
+                  <small>Gratis ongkir</small>
+                </span>
+              </label>
+            </div>
+
+            <!-- Delivery zone -->
+            <div id="deliveryZoneWrap" class="zone-wrap">
+              <label class="form-label" for="selectZone"><i class="fas fa-map-marker-alt"></i> Pilih Wilayah Tujuan</label>
+              <select id="selectZone" class="form-select" onchange="onZoneChange()">
+                <option value="">-- Pilih wilayah tujuan --</option>
+              </select>
+              <div id="ongkirInfo" class="ongkir-info" style="display:none">
+                <i class="fas fa-info-circle"></i>
+                <span id="ongkirInfoText"></span>
+              </div>
+              <div id="outOfAreaMsg" class="out-of-area" style="display:none">
+                <i class="fas fa-exclamation-triangle"></i>
+                Maaf, area Anda belum kami layani. Silakan hubungi toko langsung.
+                <a class="btn btn-wa-sm" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20ingin%20tanya%20area%20delivery%20Bakso%20Mantap%20Jaya." target="_blank">
+                  <i class="fab fa-whatsapp"></i> Chat Toko
+                </a>
+              </div>
+            </div>
+
+            <!-- Pickup info -->
+            <div id="pickupInfo" class="pickup-info" style="display:none">
+              <i class="fas fa-clock"></i>
+              <span>Estimasi siap ambil: <strong>30–45 menit</strong> setelah order dikonfirmasi. Toko kami di <strong>Jl. Contoh Raya No 1, Blora</strong>.</span>
+            </div>
+          </div>
+
+          <!-- Data Pemesan -->
+          <div class="form-card">
+            <h4 class="form-card-title"><i class="fas fa-user"></i> Data Pemesan</h4>
+            <div class="form-group">
+              <label class="form-label" for="inputNama">Nama Lengkap *</label>
+              <input type="text" id="inputNama" class="form-input" placeholder="Contoh: Budi Santoso" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="inputHP">No. HP / WhatsApp *</label>
+              <input type="tel" id="inputHP" class="form-input" placeholder="Contoh: 08123456789" />
+            </div>
+            <div class="form-group" id="alamatWrap">
+              <label class="form-label" for="inputAlamat">Alamat Lengkap *</label>
+              <textarea id="inputAlamat" class="form-textarea" rows="3" placeholder="Nama jalan, RT/RW, kelurahan, kecamatan..."></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="inputCatatan">Catatan Tambahan <span class="optional">(opsional)</span></label>
+              <textarea id="inputCatatan" class="form-textarea" rows="2" placeholder="Contoh: Kuah terpisah, tanpa seledri, pedas sedang..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: RINGKASAN -->
+        <div class="checkout-summary-wrap">
+          <div class="summary-card sticky-summary">
+            <h4 class="summary-title"><i class="fas fa-receipt"></i> Ringkasan Pesanan</h4>
+            <div id="summaryItems" class="summary-items">
+              <div class="summary-empty">Belum ada item. Tambahkan menu dulu!</div>
+            </div>
+            <div class="summary-totals">
+              <div class="summary-line">
+                <span>Subtotal Menu</span>
+                <span id="sumSubtotal">Rp0</span>
+              </div>
+              <div class="summary-line" id="sumOngkirLine" style="display:none">
+                <span>Ongkir (<span id="sumZoneName">-</span>)</span>
+                <span id="sumOngkir">Rp0</span>
+              </div>
+              <div class="summary-total">
+                <span>Total Bayar</span>
+                <span id="sumTotal">Rp0</span>
+              </div>
+            </div>
+            <div id="checkoutValidationMsg" class="validation-msg" style="display:none"></div>
+            <button class="btn btn-wa btn-block btn-lg" id="btnOrder" onclick="sendWhatsApp()">
+              <i class="fab fa-whatsapp"></i> Pesan via WhatsApp
+            </button>
+            <p class="checkout-note"><i class="fas fa-shield-alt"></i> Pembayaran COD / Transfer dikonfirmasi langsung oleh toko setelah order diterima.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== AREA DELIVERY ========== -->
+  <section class="section-area" id="area-delivery">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Jangkauan Kami</div>
+        <h2 class="section-title">Area <span class="highlight">Delivery</span></h2>
+        <p class="section-subtitle">Kami melayani pengiriman ke wilayah berikut. Cek dulu ya sebelum order!</p>
+      </div>
+      <div class="area-grid" id="areaGrid"></div>
+      <div class="area-note">
+        <i class="fas fa-info-circle"></i>
+        <span>Wilayahmu tidak ada di daftar? <a href="https://wa.me/6281234567890?text=Halo%2C%20apakah%20ada%20delivery%20ke%20lokasi%20saya%3F" target="_blank">Hubungi kami dulu</a> — kami usahakan!</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== LOKASI & KONTAK ========== -->
+  <section class="section-lokasi" id="lokasi">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Temukan Kami</div>
+        <h2 class="section-title">Lokasi & <span class="highlight">Kontak</span></h2>
+      </div>
+      <div class="lokasi-layout">
+        <div class="lokasi-info">
+          <div class="info-card">
+            <div class="info-item">
+              <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div>
+                <strong>Alamat Toko</strong>
+                <p>Jl. Contoh Raya No 1, Blora,<br/>Jawa Tengah</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon"><i class="fas fa-clock"></i></div>
+              <div>
+                <strong>Jam Operasional</strong>
+                <p>Setiap Hari<br/><span class="jam-tag">08.00 – 21.00 WIB</span></p>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon"><i class="fab fa-whatsapp"></i></div>
+              <div>
+                <strong>WhatsApp</strong>
+                <p><a href="https://wa.me/6281234567890" target="_blank">0812-3456-7890</a></p>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon"><i class="fab fa-instagram"></i></div>
+              <div>
+                <strong>Instagram</strong>
+                <p><a href="https://instagram.com/baksomantapjaya" target="_blank">@baksomantapjaya</a></p>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon"><i class="fab fa-tiktok"></i></div>
+              <div>
+                <strong>TikTok</strong>
+                <p><a href="https://tiktok.com/@bakso.mantap.jaya" target="_blank">@bakso.mantap.jaya</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="sosmed-buttons">
+            <a href="https://wa.me/6281234567890" target="_blank" class="btn btn-wa">
+              <i class="fab fa-whatsapp"></i> Chat WhatsApp
+            </a>
+            <a href="https://instagram.com/baksomantapjaya" target="_blank" class="btn btn-instagram">
+              <i class="fab fa-instagram"></i> Follow Instagram
+            </a>
+          </div>
+        </div>
+        <div class="lokasi-map">
+          <div class="map-wrap">
+            <iframe
+              src="https://maps.google.com/maps?q=Blora,+Jawa+Tengah&t=&z=14&ie=UTF8&iwloc=&output=embed"
+              width="100%" height="380" style="border:0; border-radius:16px;"
+              allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Lokasi Toko Bakso Mantap Jaya">
+            </iframe>
+          </div>
+          <p class="map-note"><i class="fas fa-info-circle"></i> Pin lokasi bersifat sementara. Update dengan koordinat toko asli sebelum rilis.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="brand-icon">🍜</span>
+          <div>
+            <div class="footer-brand-name">Bakso Mantap Jaya</div>
+            <div class="footer-brand-sub">Bakso & Mie Ayam Asli Blora</div>
+          </div>
+        </div>
+        <div class="footer-links">
+          <a href="#menu">Menu</a>
+          <a href="#area-delivery">Area Delivery</a>
+          <a href="#checkout">Order Sekarang</a>
+          <a href="#lokasi">Lokasi</a>
+        </div>
+        <div class="footer-sosmed">
+          <a href="https://wa.me/6281234567890" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://instagram.com/baksomantapjaya" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://tiktok.com/@bakso.mantap.jaya" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Jl. Contoh Raya No 1, Blora &nbsp;·&nbsp; WA: 0812-3456-7890 &nbsp;·&nbsp; Buka 08.00–21.00 WIB</p>
+        <p class="copyright">&copy; 2025 Bakso Mantap Jaya. Semua Hak Dilindungi.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
