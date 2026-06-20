@@ -11,7 +11,7 @@ const MENU_DATA = [
     id: 'bk-daging',
     category: 'makanan',
     name: 'Bakso Daging',
-    price: 15000,
+    price: 100000,
     emoji: '🍢',
     desc: 'Bakso daging sapi kenyal, kuah kaldu gurih, disajikan panas.',
     badge: '',
@@ -259,7 +259,7 @@ const DELIVERY_ZONES = [
 /* ---------- BUSINESS CONFIG ---------- */
 const BUSINESS = {
   name:       'Bakso Mantap Jaya',
-  whatsapp:   '6281234567890',      // Format: 62xxxxxxxxx (tanpa +)
+  whatsapp:   '6281336307404',      // Format: 62xxxxxxxxx (tanpa +)
   instagram:  'baksomantapjaya',
   tiktok:     'bakso.mantap.jaya',
   address:    'Jl. Contoh Raya No 1, Blora, Jawa Tengah',
